@@ -4,12 +4,12 @@ use std::fs::File;
 use std::io::{self, BufRead};
 
 fn check_if_order_is_valid(
-    order_map: &HashMap<String, HashSet<String>>,
+    order_rules_before: &HashMap<String, HashSet<String>>,
     numbers: &Vec<&str>,
 ) -> bool {
     !numbers.iter().enumerate().any(|(j, &number)| {
         numbers.iter().skip(j).any(|&number_after| {
-            order_map
+            order_rules_before
                 .get(number)
                 .map_or(false, |set| set.contains(number_after))
         })
